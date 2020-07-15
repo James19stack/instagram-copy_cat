@@ -6,22 +6,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% if title%}
-    <title>InstaPost | {{title}}</title>
+    <title>Instagram | {{title}}</title>
     {% else %}
-    <title>InstaPost</title>
+    <title>Instagram</title>
     {% endif%}
     {% block styles %}
         {% bootstrap_css %}
         <link rel="stylesheet" href="{%static 'css/index.css'%}"  >
-        <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Tangerine'>
+        <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Tangerine'>        
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+        <link rel="icon" href="{% static 'images/favicon.png'%}" type="img/png">
     {% endblock %}
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-dark bg-dark">
         <div class="container-fluid">
           <div class="navbar-header text-center">
-            <a class="navbar-brand" id='name' href="{% url 'instagram:index'%}">InstaPost</a>
+            <a class="navbar-brand" id='name' href="{% url 'instagram:index'%}">Instagram</a>
           </div>
           <div class="float-right">
               <ul style="list-style-type: none;" class="form-inline mt-1">

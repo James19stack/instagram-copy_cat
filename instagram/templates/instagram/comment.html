@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block styles %}
+    {% bootstrap_css %}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-2 col-md-2"></div>
+        <div class="col-lg-8 col-md-8 mt-2">
+            <div class="card m-3" style="width: auto; margin-left: 10px;">
+                <div>
+                    <img class="m-2 rounded-circle" src="{{image.user.profile.picture.url}}" alt="" style="height: 40px; width: 40px;"><a href="{% url 'instagram:profile'%}" style="text-decoration: none;">{{image.user.username}}</a><span></span><span class="small ml-2">{{image.posted |  date:"M d,Y,f A"}}</span>
+                </div>
+                <a href=""><img src="{{image.image.url}}" class="card-img-top img-responsive index_image" id="image" alt="IMAGE" title="" style="height:70vh; width: 100%;" ></a>
+                <div class="card-body">
+                    <div class="form-inline">
+                        <p style="font-size: 1.8em;"> <button class="border mt-3"><a href="{% url 'instagram:comment' image.pk %}" style="text-decoration: none; color: black;"><i class="far fa-comment"></i></a> </button>
+                            <form action="{% url 'instagram:likes' %}" method="POST" class="ml-3 mt-0">
+                                {% csrf_token%}
+                                {% if is_liked%}
+                                <button type="submit" name="image_id" value="{{image.id}}" class="border bg-danger" style="font-size: 1.8em;"><a style="text-decoration: none;"> <i class="far fa-heart"></i></a></button>
+                                {% else%}
+                                <button type="submit" name="image_id" value="{{image.id}}" class="border" style="font-size: 1.8em;"><a style="text-decoration: none; color: black;" > <i class="far fa-heart"></i></a></button>
+                                {% endif %}
+                            </form> 
+                        </p>
+                    </div>
+                    <p class="" style="font-weight:bolder ;">{{image.likes.count}} <span class="ml-1">likes</span></p>
+                    <p class="card-text" style="font-size: 0.9em;"><a href="{% url 'instagram:post_user' image.user.id%}" class="mr-1" style="font-weight: bolder ; text-decoration: none;">{{image.user.username}}</a>{{image.image_caption}}</p>
+
+                    <form  action="{%url 'instagram:comment' image.pk%}" method="post" enctype="multipart/form-data">
+                        {%csrf_token%}
+                    
+                        {% bootstrap_form form%}
+                        <input type="submit" class="btn btn-success btn-sm" value="Comment">
+                      </form>
+                </div>  <hr>
+                <h4 class="ml-3" style="font-weight: bold;"> View all comments </h4> 
+                <ul style="list-style-type: none;">
+                    {% for comment in comments%}
+                    <li class="row">
+                        <div class="col-md-2 col-lg-2 ">
+                            <img src="{{comment.user.profile.picture.url}}" alt="IMAGE" style="height: 40px; width: 40px;" class="rounded-circle">
+                        </div>
+                        <div class="col-md-8 col-lg-8" style="font-size: 0.9em;">
+                            <a href="{% url 'instagram:profile'%}" class="mr-1" style="font-weight: bolder ; text-decoration: none;">{{comment.user.username}}</a><br>
+                            <span class="rounded" >{{comment.comment}} </span>                        
+                        </div>
+                        <div class="col-md-2 col-lg-2"></div>
+                    </li><hr><br>
+                    {% endfor%}
+                </ul>         
+            </div>               
+        </div>
+        <div class="col-lg-2 col-md-2"></div>
+    </div>
+</div>
+{% endblock %}
