@@ -4,6 +4,7 @@ Developer: James Maina Mirara
 Email: mirarajames29@gmail.com
 
 To run this site click here
+https://instagrampost1.herokuapp.com/
 
 Location: Nairobi, Kenya
 
